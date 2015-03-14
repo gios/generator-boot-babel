@@ -1,5 +1,15 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+    "name": "<%= _.slugify(appName) %>",
+    "version": "0.0.0",
+    "private": true,
+    "devDependencies": {
+        "babel-loader": "^4.0.0",
+        "gulp": "^3.8.11",
+        "gulp-webpack": "^1.2.0",
+        "webpack": "^1.6.0"
+    },
+    "engines": {
+        "iojs": ">=1.0.0",
+        "node": ">=0.12.0"
+    }
 }

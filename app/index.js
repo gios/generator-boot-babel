@@ -1,62 +1,52 @@
 'use strict';
+
+var util = require('util');
+var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
-module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.pkg = require('../package.json');
-  },
+var BabelGenerator = module.exports = function BabelGenerator(args, options, config) {
+    yeoman.generators.Base.apply(this, arguments);
 
-  prompting: function () {
-    var done = this.async();
-
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the first-rate ' + chalk.red('Babel') + ' generator!'
-    ));
-
-    var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
-
-    this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
-
-      done();
-    }.bind(this));
-  },
-
-  writing: {
-    app: function () {
-      this.fs.copy(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json')
-      );
-      this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
-      );
-    },
-
-    projectfiles: function () {
-      this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
-      );
-      this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
-      );
-    }
-  },
-
-  install: function () {
-    this.installDependencies({
-      skipInstall: this.options['skip-install']
+    this.argument('appName', {
+        type: String,
+        required: false
     });
-  }
-});
+
+    this.appName = this.appName || path.basename(process.cwd());
+    this.appName = this._.camelize(this._.slugify(this._.humanize(this.appName)));
+    this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+
+    this.on('end', function () {
+        this.installDependencies({
+            skipInstall: options['skip-install']
+        });
+    });
+};
+
+util.inherits(BabelGenerator, yeoman.generators.Base);
+
+BabelGenerator.prototype.welcome = function () {
+    this.log(yosay(
+        'Welcome to the ' + chalk.red('Babel') + ' generator!'
+    ));
+};
+
+BabelGenerator.prototype.app = function app() {
+    this.template('gulpfile.js', 'gulpfile.js');
+    this.template('_package.json', 'package.json');
+    this.template('_webpack.config.js', 'webpack.config.js');
+};
+
+BabelGenerator.prototype.projectFolders = function projectFolders() {
+    this.directory('.\\src', 'src', true);
+};
+
+BabelGenerator.prototype.projectFiles = function projectFiles() {
+    this.copy('editorconfig', '.editorconfig');
+    this.copy('gitattributes', '.gitattributes');
+    this.copy('gitignore', '.gitignore');
+    this.copy('jshintrc', '.jshintrc');
+    this.copy('travis.yml', 'travis.yml');
+};
