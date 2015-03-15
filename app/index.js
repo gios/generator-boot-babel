@@ -29,7 +29,7 @@ util.inherits(BabelGenerator, yeoman.generators.Base);
 
 BabelGenerator.prototype.welcome = function () {
     this.log(yosay(
-        'Welcome to the ' + chalk.red('Babel') + ' generator!'
+        'Welcome to the ' + chalk.green('Babel') + ' generator!'
     ));
 };
 
