@@ -1,5 +1,5 @@
 {
-  "name": "generator-babel",
+  "name": "generator-boot-babel",
   "version": "0.0.1",
   "description": "Yeoman Babel generator",
   "license": "MIT",
