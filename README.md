@@ -1,7 +1,6 @@
 # generator-babel
 
-> [Yeoman](http://yeoman.io) generator
-
+DEPRECATED
 
 ## Getting Started
 
