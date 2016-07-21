@@ -1,6 +1,4 @@
-# generator-babel
-
-DEPRECATED
+# generator-babel(DEPRECATED)
 
 ## Getting Started
 
