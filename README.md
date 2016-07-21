@@ -1,4 +1,4 @@
-# generator-babel [![Build Status](https://secure.travis-ci.org/gios/generator-babel.png?branch=master)](https://travis-ci.org/gios/generator-babel)
+# generator-babel
 
 > [Yeoman](http://yeoman.io) generator
 
